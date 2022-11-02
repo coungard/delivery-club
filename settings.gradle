@@ -1,3 +1,4 @@
 include 'eureka-server'
 include 'gateway'
+include 'auth-service'
 
