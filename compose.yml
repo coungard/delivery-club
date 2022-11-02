@@ -1,0 +1,46 @@
+version: '3.7'
+
+services:
+
+  postgres:
+    container_name: delivery_club_postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGDATA: "/data/postgres"
+    volumes:
+      - postgres:/data/postgres
+      - ./docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+    ports:
+      - "5433:5433"
+    restart: unless-stopped
+
+  gateway:
+    restart: always
+    image: coungard/delivery-club:gateway
+    ports:
+      - '9991:9991'
+    environment:
+      AUTH: auth
+
+  eureka:
+    restart: always
+    image: coungard/delivery-club:eureka-server
+    ports:
+      - '8761:8761'
+
+  auth-service:
+    restart: always
+    image: coungard/delivery-club:auth-service
+    ports:
+      - '8081:8081'
+    environment:
+      POSTGRES: postgres
+      AUTH: auth
+      EUREKA: eureka
+    links:
+      - postgres
+
+volumes:
+  postgres:
