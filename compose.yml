@@ -13,34 +13,49 @@ services:
       - postgres:/data/postgres
       - ./docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
     ports:
-      - "5433:5433"
+      - "5433:5432"
     restart: unless-stopped
 
   gateway:
     restart: always
     image: coungard/delivery-club:gateway
+    hostname: gateway
     ports:
       - '9991:9991'
     environment:
-      AUTH: auth
+      POSTGRES: postgres
+      AUTH-SERVICE: auth-service
+      EUREKA-SERVER: eureka-server
+    links:
+      - eureka-server
 
-  eureka:
+  eureka-server:
     restart: always
     image: coungard/delivery-club:eureka-server
+    hostname: eureka-server
     ports:
       - '8761:8761'
+    environment:
+      POSTGRES: postgres
+      AUTH-SERVICE: auth-service
+      EUREKA-SERVER: eureka-server
 
   auth-service:
     restart: always
     image: coungard/delivery-club:auth-service
+    hostname: auth-service
     ports:
       - '8081:8081'
     environment:
       POSTGRES: postgres
-      AUTH: auth
-      EUREKA: eureka
+      AUTH-SERVICE: auth-service
+      EUREKA-SERVER: eureka-server
     links:
       - postgres
+      - eureka-server
 
 volumes:
   postgres:
+
+
+
