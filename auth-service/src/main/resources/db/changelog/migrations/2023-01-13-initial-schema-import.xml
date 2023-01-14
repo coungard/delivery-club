@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
+      http://www.liquibase.org/xml/ns/pro
+      http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd">
+
+  <changeSet author="coungard" id="2023-01-13-initial-schema-import-1">
+    <preConditions onFail="HALT">
+      <not>
+        <tableExists tableName="users"/>
+      </not>
+    </preConditions>
+    <sql>
+      CREATE TABLE users (
+          id        INTEGER PRIMARY KEY,
+          email     VARCHAR(255) UNIQUE NOT NULL,
+          name      VARCHAR(255) NOT NULL,
+          password  VARCHAR(255) NOT NULL
+      )
+    </sql>
+  </changeSet>
+
+  <changeSet author="coungard" id="2023-01-13-initial-schema-import-2">
+    <preConditions onFail="HALT">
+      <not>
+        <tableExists tableName="role"/>
+      </not>
+    </preConditions>
+    <sql>
+      CREATE TABLE role (
+        id        INTEGER PRIMARY KEY,
+        name      VARCHAR(255) UNIQUE NOT NULL
+        )
+    </sql>
+  </changeSet>
+
+  <changeSet author="coungard" id="2023-01-13-initial-schema-import-3">
+    <preConditions onFail="HALT">
+      <not>
+        <tableExists tableName="user_roles"/>
+      </not>
+    </preConditions>
+    <sql>
+      CREATE TABLE user_roles (
+        user_id      INTEGER REFERENCES users(id),
+        role_id      INTEGER REFERENCES role(id),
+        PRIMARY KEY (user_id, role_id)
+        )
+    </sql>
+  </changeSet>
+
+  <changeSet author="coungard" id="2023-01-13-initial-schema-import-4">
+    <preConditions onFail="HALT">
+      <sqlCheck expectedResult="0">select count(*) from role</sqlCheck>
+    </preConditions>
+    <sql>
+      INSERT INTO role(id, name)
+      VALUES (1, 'ROLE_USER');
+      INSERT INTO role(id, name)
+      VALUES (2, 'ROLE_ADMIN');
+      INSERT INTO role(id, name)
+      VALUES (3, 'ROLE_COURIER');
+    </sql>
+  </changeSet>
+
+  <changeSet author="coungard" id="2023-01-13-initial-schema-import-5">
+    <preConditions onFail="HALT">
+      <sqlCheck expectedResult="0">select count(*) from users</sqlCheck>
+    </preConditions>
+    <sql>
+      -- pass 12345678
+      INSERT INTO users (id, email, name, password)
+      VALUES (1000, 'user@gmail.com', 'user', '$2a$10$Uk6ESOOrW0FZQ1llPN71XOGyc0izXEeG7uJ2xTBhFpgDubpaXRk0K');
+
+      INSERT INTO users (id, email, name, password)
+      VALUES (2000, 'admin@gmail.com', 'admin', '$2a$10$Uk6ESOOrW0FZQ1llPN71XOGyc0izXEeG7uJ2xTBhFpgDubpaXRk0K');
+
+      INSERT INTO users (id, email, name, password)
+      VALUES (3000, 'courier@gmail.com', 'courier', '$2a$10$Uk6ESOOrW0FZQ1llPN71XOGyc0izXEeG7uJ2xTBhFpgDubpaXRk0K');
+    </sql>
+  </changeSet>
+
+  <changeSet author="coungard" id="2023-01-13-initial-schema-import-6">
+    <preConditions onFail="HALT">
+      <sqlCheck expectedResult="0">select count(*) from user_roles</sqlCheck>
+    </preConditions>
+    <sql>
+      INSERT INTO user_roles (user_id, role_id)
+      VALUES (1000, 1);
+
+      INSERT INTO user_roles (user_id, role_id)
+      VALUES (2000, 2);
+
+      INSERT INTO user_roles (user_id, role_id)
+      VALUES (3000, 3);
+    </sql>
+  </changeSet>
+</databaseChangeLog>
