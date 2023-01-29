@@ -5,8 +5,12 @@ eureka:
 
 spring:
   liquibase:
-    enabled: on
-    url: jdbc:postgresql://localhost:5433/delivery_club
-    user: postgres
-    password: postgres
-    change-log: classpath:db/changelog/db.changelog-master.xml
+    enabled: true
+
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          filter:
+            CommonsRequestLoggingFilter: DEBUG

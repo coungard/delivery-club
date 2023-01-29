@@ -10,12 +10,12 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: validate
-    defer-datasource-initialization: true
   sql:
     init:
       mode: always
+  liquibase:
+    enabled: true
+    change-log: "db/changelog/db.changelog-master.xml"
 
 server:
   port: 8081
