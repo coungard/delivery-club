@@ -1,33 +1,32 @@
 package com.coungard.controller;
 
-import com.coungard.model.RoleName;
-import com.coungard.request.SignInRequest;
-import com.coungard.request.SignUpRequest;
-import com.coungard.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.coungard.model.request.LoginRequest;
+import com.coungard.model.request.SignUpRequest;
+import com.coungard.service.AuthService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(name = "/auth")
 public class AuthController {
 
-  @Autowired
-  private UserService userService;
+  private final AuthService authService;
 
   @PostMapping("/login")
-  public void login(SignInRequest request) {
-    // todo
+  public void login(LoginRequest loginRequest) {
+    authService.authenticateUser(loginRequest);
   }
 
   @PostMapping("/sign-up")
-  public void signUpUser(SignUpRequest request) {
-    userService.createUser(request, RoleName.USER);
+  public void signUpUser(SignUpRequest signUpRequest) {
+    authService.registerUser(signUpRequest);
   }
 
   @PostMapping("/create-courier")
-  public void createCourier(SignUpRequest request) {
-    userService.createUser(request, RoleName.COURIER);
+  public void createCourier(SignUpRequest signUpRequest) {
+    authService.registerCourier(signUpRequest);
   }
 }
