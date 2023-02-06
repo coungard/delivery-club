@@ -2,7 +2,7 @@ package com.coungard.service.impl;
 
 import com.coungard.entity.Role;
 import com.coungard.entity.User;
-import com.coungard.exception.ApplicationError;
+import com.coungard.exception.ApplicationException;
 import com.coungard.exception.ConflictException;
 import com.coungard.model.RoleName;
 import com.coungard.model.request.LoginRequest;
@@ -13,7 +13,6 @@ import com.coungard.security.UserPrincipal;
 import com.coungard.service.AuthService;
 import java.util.Collections;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -34,7 +33,6 @@ public class DefaultAuthService implements AuthService {
   private final AuthenticationManager authenticationManager;
 
   @Override
-  @SneakyThrows
   public boolean authenticateUser(LoginRequest request) {
     Authentication authentication;
     try {
@@ -70,7 +68,7 @@ public class DefaultAuthService implements AuthService {
     }
     String password = passwordEncoder.encode(request.getPassword());
     Role role = roleRepository.findByName(roleName.name())
-        .orElseThrow(() -> new ApplicationError("Role " + roleName + " is not in the list of roles"));
+        .orElseThrow(() -> new ApplicationException("Role " + roleName + " is not in the list of roles"));
     User user = new User(email, request.getName(), password);
     user.setRoles(Collections.singleton(role));
     return userRepository.save(user).getId();
