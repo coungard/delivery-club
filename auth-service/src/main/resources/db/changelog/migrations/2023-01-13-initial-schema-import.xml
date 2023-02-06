@@ -16,7 +16,7 @@
     </preConditions>
     <sql>
       CREATE TABLE users (
-          id        INTEGER PRIMARY KEY,
+          id        BIGSERIAL PRIMARY KEY,
           email     VARCHAR(255) UNIQUE NOT NULL,
           name      VARCHAR(255) NOT NULL,
           password  VARCHAR(255) NOT NULL
@@ -59,11 +59,11 @@
     </preConditions>
     <sql>
       INSERT INTO role(id, name)
-      VALUES (1, 'ROLE_USER');
+      VALUES (1, 'USER');
       INSERT INTO role(id, name)
-      VALUES (2, 'ROLE_ADMIN');
+      VALUES (2, 'ADMIN');
       INSERT INTO role(id, name)
-      VALUES (3, 'ROLE_COURIER');
+      VALUES (3, 'COURIER');
     </sql>
   </changeSet>
 

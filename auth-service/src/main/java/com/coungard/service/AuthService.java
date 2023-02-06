@@ -5,7 +5,7 @@ import com.coungard.model.request.SignUpRequest;
 
 public interface AuthService {
 
-  String authenticateUser(LoginRequest loginRequest);
+  boolean authenticateUser(LoginRequest loginRequest);
 
   Long registerUser(SignUpRequest request);
 
