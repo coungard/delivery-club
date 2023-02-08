@@ -23,7 +23,7 @@ ext {
     set('springCloudVersion', "2021.0.4")
     set('mapstructVersion', '1.5.3.Final')
 
-//    generatedMapperSourcesDir = "${buildDir}/generated-src/mapstruct/main"
+    generatedMapperSourcesDir = "${buildDir}/generated-src/mapstruct/main"
 }
 
 

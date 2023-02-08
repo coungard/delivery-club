@@ -1,6 +1,6 @@
 package com.coungard.controller;
 
-import com.coungard.entity.User;
+import com.coungard.security.UserPrincipal;
 import com.coungard.service.UserService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ public class UserController {
   private final UserService userService;
 
   @GetMapping("/all")
-  public List<User> getAllUser() {
+  public List<UserPrincipal> getAllUser() {
     return userService.getAllUsers();
   }
 }

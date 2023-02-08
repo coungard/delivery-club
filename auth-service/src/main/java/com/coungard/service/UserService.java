@@ -1,9 +1,10 @@
 package com.coungard.service;
 
 import com.coungard.entity.User;
+import com.coungard.security.UserPrincipal;
 import java.util.List;
 
 public interface UserService {
 
-  List<User> getAllUsers();
+  List<UserPrincipal> getAllUsers();
 }
