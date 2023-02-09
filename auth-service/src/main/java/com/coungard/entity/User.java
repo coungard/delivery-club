@@ -1,6 +1,7 @@
 package com.coungard.entity;
 
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity(name = "users")
 @Data
@@ -31,7 +34,8 @@ public class User {
   @Column(name = "password")
   private String password;
 
-  @ManyToMany()
+  @ManyToMany(cascade = CascadeType.ALL)
+  @Fetch(FetchMode.SUBSELECT)
   @JoinTable(name = "user_roles",
       joinColumns = @JoinColumn(name = "user_id"),
       inverseJoinColumns = @JoinColumn(name = "role_id"))
