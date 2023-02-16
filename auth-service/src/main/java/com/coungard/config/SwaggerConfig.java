@@ -1,5 +1,6 @@
 package com.coungard.config;
 
+import java.util.function.Predicate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -20,8 +21,8 @@ public class SwaggerConfig {
   public Docket api() {
     return new Docket(DocumentationType.SWAGGER_2)
         .select()
-        .apis(RequestHandlerSelectors.basePackage("com.coungard.controller"))
-        .paths(PathSelectors.any())
+        .apis(RequestHandlerSelectors.any())
+        .paths(Predicate.not(PathSelectors.regex("/error.*?")))
         .build()
         .tags(
             new Tag(USER_TAG, "Operations related to user management"),

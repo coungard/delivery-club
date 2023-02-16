@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
+      http://www.liquibase.org/xml/ns/pro
+      http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd">
+
+  <changeSet author="coungard" id="2023-02-16-create-delivery-order-table">
+    <preConditions onFail="HALT">
+      <not>
+        <tableExists tableName="delivery_order"/>
+      </not>
+    </preConditions>
+    <sql>
+      CREATE TABLE delivery_order
+      (
+        id               BIGSERIAL PRIMARY KEY,
+        status           VARCHAR(32)  NOT NULL,
+        createdBy        VARCHAR(128) NOT NULL,
+        createdDate      DATE         NOT NULL,
+        lastModifiedBy   VARCHAR(128),
+        lastModifiedDate DATE,
+        city             VARCHAR(64)  NOT NULL,
+        district         VARCHAR(128) NOT NULL,
+        receiver_name    VARCHAR(128) NOT NULL,
+        receiver_surname VARCHAR(128) NOT NULL,
+        receiver_phone   VARCHAR(20)  NOT NULL
+      )
+    </sql>
+  </changeSet>
+
+  <changeSet author="coungard" id="2023-02-16-create-parcel-table">
+    <preConditions onFail="HALT">
+      <not>
+        <tableExists tableName="parcel"/>
+      </not>
+    </preConditions>
+    <sql>
+      CREATE TABLE parcel
+      (
+        id                BIGSERIAL PRIMARY KEY,
+        delivery_order_id VARCHAR(255) REFERENCES delivery_order (id),
+        createdBy         VARCHAR(128)  NOT NULL,
+        createdDate       DATE          NOT NULL,
+        lastModifiedBy    VARCHAR(128),
+        lastModifiedDate  DATE,
+        type              VARCHAR(20)   NOT NULL,
+        weight            NUMERIC(4, 2) NOT NULL
+      )
+    </sql>
+  </changeSet>
+
+</databaseChangeLog>
