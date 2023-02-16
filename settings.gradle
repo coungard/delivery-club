@@ -1,5 +1,5 @@
-include 'eureka-server'
-include 'gateway'
-include 'auth-service'
-include 'order-service'
+include ':eureka-server'
+include ':gateway'
+include ':auth-service'
+include ':order-service'
 

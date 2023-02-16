@@ -42,7 +42,7 @@
       CREATE TABLE parcel
       (
         id                BIGSERIAL PRIMARY KEY,
-        delivery_order_id VARCHAR(255) REFERENCES delivery_order (id),
+        delivery_order_id INTEGER REFERENCES delivery_order (id),
         createdBy         VARCHAR(128)  NOT NULL,
         createdDate       DATE          NOT NULL,
         lastModifiedBy    VARCHAR(128),
