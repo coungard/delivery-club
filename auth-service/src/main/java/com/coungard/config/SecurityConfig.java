@@ -1,11 +1,13 @@
 package com.coungard.config;
 
 import com.coungard.security.CustomUserDetailsService;
+import com.coungard.security.MyBasicAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,6 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @RequiredArgsConstructor
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfig {
 
   private static final String[] AUTH_WHITELIST = {
@@ -25,6 +28,7 @@ public class SecurityConfig {
   };
 
   private final CustomUserDetailsService userDetailsService;
+  private final MyBasicAuthenticationEntryPoint authenticationEntryPoint;
 
   @Bean
   public PasswordEncoder passwordEncoder() {
@@ -50,13 +54,14 @@ public class SecurityConfig {
         .and()
         .csrf()
         .disable()
-        .httpBasic()
-        .disable()
         .authorizeRequests()
         .mvcMatchers("/auth/login", "/auth/sign-up", "/auth/test", "/user/**").permitAll()
         .mvcMatchers(AUTH_WHITELIST).permitAll()
         .anyRequest()
-        .authenticated();
+        .authenticated()
+        .and()
+        .httpBasic()
+        .authenticationEntryPoint(authenticationEntryPoint);
 
     return http.build();
   }

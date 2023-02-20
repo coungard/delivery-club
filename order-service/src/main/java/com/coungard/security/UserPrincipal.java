@@ -1,18 +1,26 @@
 package com.coungard.security;
 
+import com.coungard.utils.UserPrincipalAuthoritiesDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.Collection;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class UserPrincipal implements UserDetails {
 
-  private final Long id;
-  private final String name;
-  private final String email;
-  private final String password;
-  private final Collection<? extends GrantedAuthority> authorities;
+  private Long id;
+  private String name;
+  private String email;
+  private String password;
+  private Collection<? extends GrantedAuthority> authorities;
 
   @Override
   public String getUsername() {
@@ -24,6 +32,7 @@ public class UserPrincipal implements UserDetails {
   }
 
   @Override
+  @JsonDeserialize(using = UserPrincipalAuthoritiesDeserializer.class)
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return authorities;
   }

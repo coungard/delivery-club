@@ -1,5 +1,5 @@
 package com.coungard.model;
 
 public enum RoleName {
-  USER, ADMIN, COURIER
+  ROLE_USER, ROLE_ADMIN, ROLE_COURIER
 }

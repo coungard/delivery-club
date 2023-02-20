@@ -53,12 +53,12 @@ public class DefaultAuthService implements AuthService {
 
   @Override
   public Long registerUser(SignUpRequest request) {
-    return register(request, RoleName.USER);
+    return register(request, RoleName.ROLE_USER);
   }
 
   @Override
   public Long registerCourier(SignUpRequest request) {
-    return register(request, RoleName.COURIER);
+    return register(request, RoleName.ROLE_COURIER);
   }
 
   private Long register(SignUpRequest request, RoleName roleName) {
