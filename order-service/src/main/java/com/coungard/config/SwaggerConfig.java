@@ -25,7 +25,7 @@ public class SwaggerConfig {
         .paths(Predicate.not(PathSelectors.regex("/error.*?")))
         .build()
         .tags(
-            new Tag(ORDER_TAG, "Operations related to authentication and registration")
+            new Tag(ORDER_TAG, "Operations responsible for handling orders")
         );
   }
 }

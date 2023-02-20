@@ -24,7 +24,7 @@ server:
 eureka:
   instance:
     prefer-ip-address: true
-    hostname: auth-service
+    hostname: order-service
   client:
     prefer-same-zone-eureka: true
     serviceUrl:

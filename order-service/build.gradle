@@ -28,8 +28,7 @@ ext {
 
 
 dependencies {
-    implementation project(':auth-service')
-
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
     implementation 'org.liquibase:liquibase-core'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
     implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -74,15 +73,15 @@ compileJava {
     ]
 }
 
-//liquibase {
-//    activities {
-//        main {
-//            changeLogFile "src/main/resources/db/changelog/db.changelog-master.xml"
-//            url "jdbc:postgresql://localhost:5433/delivery_club"
-//            username "postgres"
-//            password "postgres"
-//        }
-//    }
-//}
+liquibase {
+    activities {
+        main {
+            changeLogFile "src/main/resources/db/changelog/db.changelog-master.xml"
+            url "jdbc:postgresql://localhost:5433/delivery_club"
+            username "postgres"
+            password "postgres"
+        }
+    }
+}
 
 

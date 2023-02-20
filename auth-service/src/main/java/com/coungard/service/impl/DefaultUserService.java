@@ -7,8 +7,8 @@ import com.coungard.security.UserPrincipal;
 import com.coungard.service.UserService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -18,9 +18,15 @@ public class DefaultUserService implements UserService {
   private final UserMapper userMapper = UserMapper.INSTANCE;
 
   @Override
-  @Transactional
   public List<UserPrincipal> getAllUsers() {
     List<User> users = userRepository.findAll();
     return userMapper.toPrincipalList(users);
+  }
+
+  @Override
+  public UserPrincipal getUserByEmail(String email) {
+    User user = userRepository.findByEmail(email)
+        .orElseThrow(() -> new UsernameNotFoundException("User not found by email: " + email));
+    return userMapper.toPrincipal(user);
   }
 }
