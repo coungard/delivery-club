@@ -73,15 +73,4 @@ compileJava {
     ]
 }
 
-liquibase {
-    activities {
-        main {
-            changeLogFile "src/main/resources/db/changelog/db.changelog-master.xml"
-            url "jdbc:postgresql://localhost:5433/delivery_club"
-            username "postgres"
-            password "postgres"
-        }
-    }
-}
-
 

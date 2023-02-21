@@ -1,3 +1,5 @@
 ### DELIVERY CLUB
 
-Project in development yet.
+For Developers:
+
+Before start contributing set up code-style.xml in Code Style Scheme
