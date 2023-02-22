@@ -14,15 +14,11 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @Slf4j
 public class OrderServiceApplication {
 
-  @Value("${spring.profiles.active}")
-  private String profile;
-
   @Value("${spring.datasource.url}")
   private String datasourceUrl;
 
   @PostConstruct
   public void showConfig() {
-    log.info("profile = {}", profile);
     log.info("datasource.url = {}", datasourceUrl);
   }
 

@@ -12,15 +12,11 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @Slf4j
 public class AuthServiceApplication {
 
-  @Value("${spring.profiles.active}")
-  private String profile;
-
   @Value("${spring.datasource.url}")
   private String datasourceUrl;
 
   @PostConstruct
   public void showConfig() {
-    log.info("profile = {}", profile);
     log.info("datasource.url = {}", datasourceUrl);
   }
 

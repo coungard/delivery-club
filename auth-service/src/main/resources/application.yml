@@ -2,10 +2,10 @@ spring:
   application:
     name: auth-service
   datasource:
-    url: jdbc:postgresql://${POSTGRES:localhost}:5433/delivery_club
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${POSTGRES:localhost}:5432/delivery_club
     username: postgres
     password: postgres
+    driver-class-name: org.postgresql.Driver
   jpa:
     properties:
       hibernate:
@@ -15,6 +15,8 @@ spring:
     init:
       mode: always
   liquibase:
+    default-schema: public
+    liquibase-schema: public
     enabled: true
     change-log: "db/changelog/db.changelog-master.xml"
 

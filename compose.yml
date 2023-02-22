@@ -8,10 +8,10 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: delivery_club
       PGDATA: "/data/postgres"
     volumes:
       - postgres:/data/postgres
-      - ./docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
     ports:
       - "5433:5432"
     restart: unless-stopped
