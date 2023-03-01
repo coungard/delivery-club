@@ -1,0 +1,1 @@
+docker image push coungard/delivery-club --all-tags

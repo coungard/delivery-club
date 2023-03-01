@@ -1,0 +1,8 @@
+eureka:
+  instance:
+    prefer-ip-address: true
+    hostname: gateway
+  client:
+    prefer-same-zone-eureka: true
+    serviceUrl:
+      defaultZone: http://eureka-server:8761/eureka/

@@ -8,4 +8,4 @@ ENV AUTH-SERVICE $AUTH-SERVICE
 ENV EUREKA-SERVER $EUREKA-SERVER
 ENV GATEWAY $GATEWAY
 ENV ORDER-SERVICE $ORDER-SERVICE
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=docker", "/app.jar"]

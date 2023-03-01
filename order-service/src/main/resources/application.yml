@@ -2,7 +2,7 @@ spring:
   application:
     name: order-service
   datasource:
-    url: jdbc:postgresql://${POSTGRES:localhost}:5432/delivery_club
+    url: jdbc:postgresql://${POSTGRES:localhost}:5433/delivery_club
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: postgres
@@ -22,10 +22,14 @@ server:
   port: 8082
 
 eureka:
-  instance:
-    prefer-ip-address: true
-    hostname: order-service
   client:
-    prefer-same-zone-eureka: true
     serviceUrl:
-      defaultZone: http://eureka-server:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/
+
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          filter:
+            CommonsRequestLoggingFilter: DEBUG

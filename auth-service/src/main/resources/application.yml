@@ -2,10 +2,10 @@ spring:
   application:
     name: auth-service
   datasource:
-    url: jdbc:postgresql://${POSTGRES:localhost}:5432/delivery_club
+    url: jdbc:postgresql://${POSTGRES:localhost}:5433/delivery_club
+    driver-class-name: org.postgresql.Driver
     username: postgres
     password: postgres
-    driver-class-name: org.postgresql.Driver
   jpa:
     properties:
       hibernate:
@@ -15,8 +15,6 @@ spring:
     init:
       mode: always
   liquibase:
-    default-schema: public
-    liquibase-schema: public
     enabled: true
     change-log: "db/changelog/db.changelog-master.xml"
 
@@ -24,10 +22,14 @@ server:
   port: 8081
 
 eureka:
-  instance:
-    prefer-ip-address: true
-    hostname: auth-service
   client:
-    prefer-same-zone-eureka: true
     serviceUrl:
-      defaultZone: http://eureka-server:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/
+
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          filter:
+            CommonsRequestLoggingFilter: DEBUG

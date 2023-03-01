@@ -50,6 +50,11 @@ services:
       POSTGRES: postgres
       AUTH-SERVICE: auth-service
       EUREKA-SERVER: eureka-server
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: delivery_club
+      DB_USER: postgres
+      DB_PASSWORD: postgres
     links:
       - postgres
       - eureka-server
@@ -64,6 +69,11 @@ services:
       POSTGRES: postgres
       AUTH-SERVICE: auth-service
       EUREKA-SERVER: eureka-server
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: delivery_club
+      DB_USER: postgres
+      DB_PASSWORD: postgres
     links:
       - postgres
       - eureka-server
