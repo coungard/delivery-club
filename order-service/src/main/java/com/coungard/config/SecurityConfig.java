@@ -32,8 +32,6 @@ public class SecurityConfig {
   private final CustomUserDetailsService userDetailsService;
   private final MyBasicAuthenticationEntryPoint authenticationEntryPoint;
 
-//  private final AuthenticationProviderService authenticationProvider;
-
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
@@ -45,7 +43,6 @@ public class SecurityConfig {
         AuthenticationManagerBuilder.class);
 
     authenticationManagerBuilder
-//        .authenticationProvider(authenticationProvider)
         .userDetailsService(userDetailsService)
         .passwordEncoder(passwordEncoder());
 

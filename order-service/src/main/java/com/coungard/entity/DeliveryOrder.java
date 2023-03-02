@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,10 +30,10 @@ public class DeliveryOrder {
   private DeliveryOrderStatus deliveryOrderStatus;
   private String city;
   private String district;
-  private String receiver_name;
-  private String receiver_surname;
-  private String receiver_phone;
-  @OneToMany
+  private String receiverName;
+  private String receiveSurname;
+  private String receiverPhone;
+  @OneToMany(fetch = FetchType.EAGER)
   @Builder.Default
   private Set<Parcel> parcels = new HashSet<>();
 

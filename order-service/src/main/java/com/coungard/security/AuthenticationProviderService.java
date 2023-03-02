@@ -18,6 +18,7 @@ public class AuthenticationProviderService implements AuthenticationProvider {
   private final AuthClient authClient;
   private final PasswordEncoder passwordEncoder;
 
+  @Override
   public Authentication authenticate(Authentication authentication) throws AuthenticationException {
     String username = authentication.getPrincipal().toString();
     String password = authentication.getCredentials().toString();
@@ -31,7 +32,7 @@ public class AuthenticationProviderService implements AuthenticationProvider {
       throw new RuntimeException(exception.getMessage());
     }
 
-    return checkPassword(userPrincipal, password);
+    return checkPassword(userPrincipal, password); // admin@gmail.com  1234 = 12345678
   }
 
   private Authentication checkPassword(UserPrincipal user, String password) {

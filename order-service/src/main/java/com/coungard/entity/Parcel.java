@@ -1,5 +1,6 @@
 package com.coungard.entity;
 
+import com.coungard.model.ParcelType;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,11 +24,11 @@ public class Parcel {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private String type;
   private Double weight;
-
+  private ParcelType type;
   @ManyToOne
   private DeliveryOrder deliveryOrder;
+
   private String createdBy;
   private LocalDateTime createdDate;
   private String lastModifiedBy;
