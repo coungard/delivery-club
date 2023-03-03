@@ -2,11 +2,12 @@ package com.coungard.controller;
 
 import static com.coungard.config.SwaggerConfig.ORDER_TAG;
 
-import com.coungard.entity.DeliveryOrder;
+import com.coungard.model.DeliveryOrderModel;
 import com.coungard.model.request.CreateDeliveryOrderRequest;
-import com.coungard.model.request.GetOrderRequest;
+import com.coungard.service.OrderService;
 import io.swagger.annotations.Api;
 import javax.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,18 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = ORDER_TAG)
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/order")
 public class OrderController {
 
-  @PreAuthorize("hasRole('ADMIN')")
-  public String getOrder() {
-    return "ALLOWED";
-  }
+  private final OrderService orderService;
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   @PreAuthorize("hasRole('USER')")
-  public String createOrder(@Valid @RequestBody CreateDeliveryOrderRequest request) {
-    return "created";
+  public DeliveryOrderModel createOrder(@Valid @RequestBody CreateDeliveryOrderRequest request) {
+    return orderService.createOrder(request);
   }
 }

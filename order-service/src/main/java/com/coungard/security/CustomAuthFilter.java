@@ -23,7 +23,7 @@ public class CustomAuthFilter extends OncePerRequestFilter {
 
     String authorization = request.getHeader("Authorization");
 
-//    UserDetails userDetails = customUserDetailsService.loadUserByUsername("dumb");
+    UserDetails userDetails = customUserDetailsService.loadUserByUsername("dumb");
 //    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 //    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 //

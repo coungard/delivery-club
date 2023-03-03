@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @ApiModel(value = "Delivery recipient address")
-public class AddressDto {
+public class AddressModel {
 
   private String city;
   private String district;

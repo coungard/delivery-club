@@ -1,10 +1,11 @@
-package com.coungard.model.request;
+package com.coungard.model;
 
-import com.coungard.model.ParcelType;
+import io.swagger.annotations.ApiModel;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
+@ApiModel(value = "Parcel model")
 public class CreateParcelModel {
 
   @NotNull(message = "type is mandatory")

@@ -1,6 +1,7 @@
 package com.coungard.model.request;
 
-import com.coungard.model.AddressDto;
+import com.coungard.model.AddressModel;
+import com.coungard.model.CreateParcelModel;
 import io.swagger.annotations.ApiModel;
 import java.util.List;
 import javax.validation.constraints.NotEmpty;
@@ -22,5 +23,5 @@ public class CreateDeliveryOrderRequest {
   private List<CreateParcelModel> parcels;
 
   @NotNull(message = "address is mandatory")
-  AddressDto address;
+  AddressModel address;
 }

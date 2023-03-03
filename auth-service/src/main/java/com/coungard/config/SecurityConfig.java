@@ -24,7 +24,8 @@ public class SecurityConfig {
       "/swagger-ui.html",
       "/v2/api-docs",
       "/webjars/**",
-      "/h2/**"
+      "/h2/**",
+      "/"
   };
 
   private final CustomUserDetailsService userDetailsService;

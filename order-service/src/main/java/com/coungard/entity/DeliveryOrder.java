@@ -15,30 +15,38 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.With;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity
 @Table(name = "delivery_order")
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@NoArgsConstructor
+@With
 public class DeliveryOrder {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private DeliveryOrderStatus deliveryOrderStatus;
+  private DeliveryOrderStatus status;
   private String city;
   private String district;
   private String receiverName;
-  private String receiveSurname;
+  private String receiverSurname;
   private String receiverPhone;
-  @OneToMany(fetch = FetchType.EAGER)
-  @Builder.Default
-  private Set<Parcel> parcels = new HashSet<>();
+  @OneToMany()
+  private Set<Parcel> parcels;
 
+  @CreatedBy
   private String createdBy;
+  @CreatedDate
   private LocalDateTime createdDate;
+  @LastModifiedBy
   private String lastModifiedBy;
+  @LastModifiedDate
   private LocalDateTime lastModifiedDate;
 }
