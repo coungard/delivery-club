@@ -4,13 +4,14 @@ import static com.coungard.config.SwaggerConfig.AUTH_TAG;
 
 import com.coungard.model.request.LoginRequest;
 import com.coungard.model.request.SignUpRequest;
+import com.coungard.model.response.AuthenticationResponse;
 import com.coungard.service.AuthService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,29 +29,22 @@ public class AuthController {
 
   @ApiOperation(value = "Sing In user")
   @PostMapping("/login")
-  public void login(@RequestBody LoginRequest loginRequest, HttpServletResponse response)
-      throws IOException {
-    boolean authenticated = authService.authenticateUser(loginRequest);
-    if (authenticated) {
-      response.setStatus(HttpServletResponse.SC_OK);
-    } else {
-      response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-      response.getWriter().println("Bad Credentials");
-    }
+  public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest loginRequest) {
+    return ResponseEntity.ok(authService.authenticateUser(loginRequest));
   }
 
   @ApiOperation(value = "Sign Up user")
   @PostMapping("/sign-up")
   @ResponseStatus(HttpStatus.CREATED)
-  public Long signUpUser(@RequestBody SignUpRequest signUpRequest) {
-    return authService.registerUser(signUpRequest);
+  public ResponseEntity<AuthenticationResponse> signUpUser(@RequestBody SignUpRequest signUpRequest) {
+    return ResponseEntity.ok(authService.registerUser(signUpRequest));
   }
 
   @ApiOperation(value = "Create a courier")
   @PreAuthorize("hasRole('ADMIN')")
   @PostMapping("/create-courier")
   @ResponseStatus(HttpStatus.CREATED)
-  public Long createCourier(@RequestBody SignUpRequest signUpRequest) {
-    return authService.registerCourier(signUpRequest);
+  public ResponseEntity<AuthenticationResponse> createCourier(@RequestBody SignUpRequest signUpRequest) {
+    return ResponseEntity.ok(authService.registerCourier(signUpRequest));
   }
 }

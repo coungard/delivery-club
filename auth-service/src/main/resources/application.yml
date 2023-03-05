@@ -26,6 +26,10 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
 
+jwt:
+  signing:
+    key: t6w9z$B&E)H@McQfTjWnZr4u7x!A%D*F
+
 logging:
   level:
     org:
