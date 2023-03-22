@@ -50,6 +50,7 @@ public class DefaultAuthService implements AuthService {
     log.info("User with [email: {}] has logged in", request.getEmail());
     return AuthenticationResponse.builder()
         .token(jwtToken)
+        .roleName(userDetails.getAuthorities().stream().findFirst().get().toString())
         .build();
   }
 
@@ -78,6 +79,7 @@ public class DefaultAuthService implements AuthService {
     String jwtToken = jwtService.generateToken(userMapper.toPrincipal(user));
     return AuthenticationResponse.builder()
         .token(jwtToken)
+        .roleName(roleName.name())
         .build();
   }
 }

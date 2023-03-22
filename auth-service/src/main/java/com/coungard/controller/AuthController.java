@@ -40,7 +40,7 @@ public class AuthController {
     return ResponseEntity.ok(authService.registerUser(signUpRequest));
   }
 
-  @ApiOperation(value = "Create a courier")
+  @ApiOperation(value = "Create a courier by Admin")
   @PreAuthorize("hasRole('ADMIN')")
   @PostMapping("/create-courier")
   @ResponseStatus(HttpStatus.CREATED)

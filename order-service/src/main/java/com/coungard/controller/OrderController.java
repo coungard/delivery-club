@@ -6,6 +6,7 @@ import com.coungard.model.DeliveryOrderModel;
 import com.coungard.model.request.CreateDeliveryOrderRequest;
 import com.coungard.service.OrderService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,7 +28,14 @@ public class OrderController {
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   @PreAuthorize("hasRole('USER')")
+  @ApiOperation(value = "Create order by User")
   public DeliveryOrderModel createOrder(@Valid @RequestBody CreateDeliveryOrderRequest request) {
     return orderService.createOrder(request);
   }
+
+  // jwt auth
+  // delete own order
+  // edit own order
+  // get all own orders (by filter)
+  // reset password
 }
