@@ -16,19 +16,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Data
 public class UserPrincipal implements UserDetails {
 
-  private Long id;
-  private String name;
-  private String email;
+  private String username;
   private String password;
   private Collection<? extends GrantedAuthority> authorities;
 
   @Override
   public String getUsername() {
-    return email;
-  }
-
-  public String getName() {
-    return name;
+    return username;
   }
 
   @Override

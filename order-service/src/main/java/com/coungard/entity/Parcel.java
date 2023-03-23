@@ -6,19 +6,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.With;
 
 @Entity
 @Table(name = "parcel")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@With
 public class Parcel {
 
   @Id
@@ -26,7 +28,9 @@ public class Parcel {
   private Long id;
   private Double weight;
   private ParcelType type;
-  @ManyToOne
+  @ManyToOne()
+  @JoinColumn(name = "delivery_order_id")
+  @ToString.Exclude
   private DeliveryOrder deliveryOrder;
 
   private String createdBy;

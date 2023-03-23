@@ -58,7 +58,7 @@ public class SecurityConfig {
     http
         .cors().and().csrf().disable()
         .authorizeRequests()
-        .mvcMatchers("/auth/login", "/auth/sign-up", "/auth/test").permitAll()
+        .mvcMatchers("/auth/login", "/auth/sign-up", "/auth/test", "/user/email/**").permitAll()
         .mvcMatchers(AUTH_WHITELIST).permitAll()
         .anyRequest()
         .authenticated()

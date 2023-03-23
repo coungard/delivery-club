@@ -11,7 +11,7 @@ public class AddressModel {
   private String city;
   private String district;
   private String receiverName;
-  private String receiveSurname;
+  private String receiverSurname;
   @NotNull(message = "phone is mandatory")
   private String receiverPhone;
 }
