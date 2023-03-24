@@ -8,6 +8,7 @@ import com.coungard.model.request.CreateDeliveryOrderRequest;
 import com.coungard.repository.OrderRepository;
 import com.coungard.service.OrderService;
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class DeliveryOrderService implements OrderService {
 
   @Override
   public DeliveryOrderModel createOrder(CreateDeliveryOrderRequest request) {
-    String email = definePrincipalEmail();
+    String email = definePrincipal();
     LocalDateTime createdDate = LocalDateTime.now();
 
     DeliveryOrder deliveryOrder = orderMapper.toDeliveryOrder(request)
@@ -40,7 +41,14 @@ public class DeliveryOrderService implements OrderService {
     return orderMapper.toDeliveryOrderModel(saved);
   }
 
-  private String definePrincipalEmail() {
+  @Override
+  public List<DeliveryOrderModel> getOwnOrders(DeliveryOrderStatus status) {
+    String email = definePrincipal();
+    List<DeliveryOrder> deliveryOrders = orderRepository.defineAllOrdersByEmailAndStatuses(email, status);
+    return orderMapper.toDeliveryOrderModelList(deliveryOrders);
+  }
+
+  private String definePrincipal() {
     return (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
   }
 }

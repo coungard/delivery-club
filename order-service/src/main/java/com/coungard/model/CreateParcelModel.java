@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-@ApiModel(value = "Parcel model")
+@ApiModel(value = "Create Parcel model, when we creating delivery order")
 public class CreateParcelModel {
 
   @NotNull(message = "type is mandatory")

@@ -3,6 +3,7 @@ package com.coungard.mapper;
 import com.coungard.entity.DeliveryOrder;
 import com.coungard.model.DeliveryOrderModel;
 import com.coungard.model.request.CreateDeliveryOrderRequest;
+import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
@@ -15,4 +16,6 @@ public interface DeliveryOrderMapper {
   DeliveryOrder toDeliveryOrder(CreateDeliveryOrderRequest request);
 
   DeliveryOrderModel toDeliveryOrderModel(DeliveryOrder deliveryOrder);
+
+  List<DeliveryOrderModel> toDeliveryOrderModelList(List<DeliveryOrder> deliveryOrders);
 }
