@@ -10,6 +10,6 @@ public class DeliveryOrderModel {
 
   private Long id;
   private DeliveryOrderStatus status;
-  private AddressModel address;
+  private AddressModel destination;
   private List<ParcelModel> parcels;
 }

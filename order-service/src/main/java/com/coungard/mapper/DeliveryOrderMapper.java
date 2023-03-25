@@ -1,6 +1,8 @@
 package com.coungard.mapper;
 
 import com.coungard.entity.DeliveryOrder;
+import com.coungard.entity.DeliveryOrder.Address;
+import com.coungard.model.AddressModel;
 import com.coungard.model.DeliveryOrderModel;
 import com.coungard.model.request.CreateDeliveryOrderRequest;
 import java.util.List;
@@ -18,4 +20,6 @@ public interface DeliveryOrderMapper {
   DeliveryOrderModel toDeliveryOrderModel(DeliveryOrder deliveryOrder);
 
   List<DeliveryOrderModel> toDeliveryOrderModelList(List<DeliveryOrder> deliveryOrders);
+
+  Address toAddressFromAddressModel(AddressModel addressModel);
 }

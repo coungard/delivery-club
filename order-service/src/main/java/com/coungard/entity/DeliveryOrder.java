@@ -3,7 +3,6 @@ package com.coungard.entity;
 import com.coungard.model.DeliveryOrderStatus;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
@@ -36,7 +35,7 @@ public class DeliveryOrder {
   @OneToMany(mappedBy = "deliveryOrder", cascade = CascadeType.ALL)
   private List<Parcel> parcels;
   @Embedded
-  private Address address;
+  private Address destination;
 
   private String createdBy;
   private LocalDateTime createdDate;

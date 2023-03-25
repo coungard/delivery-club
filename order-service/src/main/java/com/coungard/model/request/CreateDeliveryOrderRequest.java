@@ -22,6 +22,6 @@ public class CreateDeliveryOrderRequest {
   @NotEmpty(message = "parcels must have at least 1 item")
   private List<CreateParcelModel> parcels;
 
-  @NotNull(message = "address is mandatory")
-  AddressModel address;
+  @NotNull(message = "destination address is mandatory")
+  AddressModel destination;
 }

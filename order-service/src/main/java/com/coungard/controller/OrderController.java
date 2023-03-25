@@ -2,6 +2,7 @@ package com.coungard.controller;
 
 import static com.coungard.config.SwaggerConfig.ORDER_TAG;
 
+import com.coungard.model.AddressModel;
 import com.coungard.model.DeliveryOrderModel;
 import com.coungard.model.DeliveryOrderStatus;
 import com.coungard.model.request.CreateDeliveryOrderRequest;
@@ -10,11 +11,14 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import javax.validation.Valid;
+import javax.ws.rs.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,9 +49,11 @@ public class OrderController {
     return orderService.getOwnOrders(status);
   }
 
-  // jwt auth
-  // delete own order
-  // edit own order
-  // get all own orders (by filter)
-  // reset password
+  @PutMapping("/{id}")
+  @PreAuthorize("hasRole('USER')")
+  @ResponseStatus(HttpStatus.CREATED)
+  @ApiOperation(value = "Change the destination address of a user's own order")
+  public DeliveryOrderModel changeDestination(@Valid @RequestBody AddressModel destination, @PathVariable Long id) {
+    return orderService.changeDestination(id, destination);
+  }
 }
