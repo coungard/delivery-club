@@ -2,6 +2,7 @@ package com.coungard.service.impl;
 
 import com.coungard.entity.DeliveryOrder;
 import com.coungard.mapper.DeliveryOrderMapper;
+import com.coungard.model.AddressModel;
 import com.coungard.model.DeliveryOrderModel;
 import com.coungard.model.DeliveryOrderStatus;
 import com.coungard.model.request.CreateDeliveryOrderRequest;
@@ -46,6 +47,16 @@ public class DeliveryOrderService implements OrderService {
     String email = definePrincipal();
     List<DeliveryOrder> deliveryOrders = orderRepository.defineAllOrdersByEmailAndStatuses(email, status);
     return orderMapper.toDeliveryOrderModelList(deliveryOrders);
+  }
+
+  @Override
+  public DeliveryOrderModel changeDestination(Long id, AddressModel destination) {
+    DeliveryOrder deliveryOrder = orderRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Delivery order by id=" + id + " not found!"));
+
+    deliveryOrder.setDestination(orderMapper.toAddressFromAddressModel(destination));
+    DeliveryOrder saved = orderRepository.save(deliveryOrder);
+    return orderMapper.toDeliveryOrderModel(saved);
   }
 
   private String definePrincipal() {
