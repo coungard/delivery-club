@@ -5,16 +5,19 @@ import static com.coungard.config.SwaggerConfig.AUTH_TAG;
 import com.coungard.model.request.LoginRequest;
 import com.coungard.model.request.SignUpRequest;
 import com.coungard.model.response.AuthenticationResponse;
+import com.coungard.security.UserPrincipal;
 import com.coungard.service.AuthService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,5 +49,12 @@ public class AuthController {
   @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<AuthenticationResponse> createCourier(@RequestBody SignUpRequest signUpRequest) {
     return ResponseEntity.ok(authService.registerCourier(signUpRequest));
+  }
+
+  @ApiOperation(value = "Identification user by token")
+  @GetMapping("/user/me")
+  @ResponseStatus(HttpStatus.OK)
+  public ResponseEntity<UserPrincipal> identify(@RequestHeader(HttpHeaders.AUTHORIZATION)  String authHeader) {
+    return ResponseEntity.ok(authService.identify(authHeader));
   }
 }

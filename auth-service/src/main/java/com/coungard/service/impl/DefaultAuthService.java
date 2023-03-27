@@ -13,8 +13,10 @@ import com.coungard.repository.RoleRepository;
 import com.coungard.repository.UserRepository;
 import com.coungard.security.CustomUserDetailsService;
 import com.coungard.security.JwtService;
+import com.coungard.security.UserPrincipal;
 import com.coungard.service.AuthService;
 import java.util.Collections;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -62,6 +64,25 @@ public class DefaultAuthService implements AuthService {
   @Override
   public AuthenticationResponse registerCourier(SignUpRequest request) {
     return register(request, RoleName.ROLE_COURIER);
+  }
+
+  @Override
+  public UserPrincipal identify(String authHeader) {
+    return Optional.of(authHeader)
+        .map(this::defineBearerToken)
+        .map(jwtService::extractUsername)
+        .map(userRepository::findByEmail)
+        .filter(Optional::isPresent)
+        .map(Optional::get)
+        .map(userMapper::toPrincipal)
+        .orElseThrow(() -> new RuntimeException("Identification error by extract token: " + authHeader));
+  }
+
+  private String defineBearerToken(String authHeader) {
+    if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+      throw new RuntimeException("Authentication method must be Bearer");
+    }
+    return authHeader.substring(7);
   }
 
   private AuthenticationResponse register(SignUpRequest request, RoleName roleName) {
