@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface AuthClient {
 
   @GetMapping("/email/{email}")
-  UserPrincipal getUserByEmail(@PathVariable String email);
+  UserPrincipal getUserByEmail(@PathVariable("email") String email);
 }
