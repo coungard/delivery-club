@@ -9,6 +9,7 @@ import com.coungard.model.RoleName;
 import com.coungard.model.request.LoginRequest;
 import com.coungard.model.request.SignUpRequest;
 import com.coungard.model.response.AuthenticationResponse;
+import com.coungard.model.response.DetailedAuthenticationResponse;
 import com.coungard.repository.RoleRepository;
 import com.coungard.repository.UserRepository;
 import com.coungard.security.CustomUserDetailsService;
@@ -39,20 +40,21 @@ public class DefaultAuthService implements AuthService {
   private final UserMapper userMapper = UserMapper.INSTANCE;
 
   @Override
-  public AuthenticationResponse authenticateUser(LoginRequest request) {
+  public DetailedAuthenticationResponse authenticateUser(LoginRequest request) {
     authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(
             request.getEmail(),
             request.getPassword()
         )
     );
-    UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
-    String jwtToken = jwtService.generateToken(userDetails);
+    UserPrincipal userPrincipal = userDetailsService.loadUserByUsername(request.getEmail());
+    String jwtToken = jwtService.generateToken(userPrincipal);
 
     log.info("User with [email: {}] has logged in", request.getEmail());
-    return AuthenticationResponse.builder()
+
+    return DetailedAuthenticationResponse.builder()
         .token(jwtToken)
-        .roleName(userDetails.getAuthorities().stream().findFirst().get().toString())
+        .userPrincipal(userPrincipal)
         .build();
   }
 

@@ -5,6 +5,7 @@ import static com.coungard.config.SwaggerConfig.AUTH_TAG;
 import com.coungard.model.request.LoginRequest;
 import com.coungard.model.request.SignUpRequest;
 import com.coungard.model.response.AuthenticationResponse;
+import com.coungard.model.response.DetailedAuthenticationResponse;
 import com.coungard.security.UserPrincipal;
 import com.coungard.service.AuthService;
 import io.swagger.annotations.Api;
@@ -32,7 +33,7 @@ public class AuthController {
 
   @ApiOperation(value = "Sing In user")
   @PostMapping("/login")
-  public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest loginRequest) {
+  public ResponseEntity<DetailedAuthenticationResponse> login(@RequestBody LoginRequest loginRequest) {
     return ResponseEntity.ok(authService.authenticateUser(loginRequest));
   }
 
