@@ -10,6 +10,7 @@ import com.coungard.security.UserPrincipal;
 import com.coungard.service.AuthService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -33,14 +34,14 @@ public class AuthController {
 
   @ApiOperation(value = "Sing In user")
   @PostMapping("/login")
-  public ResponseEntity<DetailedAuthenticationResponse> login(@RequestBody LoginRequest loginRequest) {
+  public ResponseEntity<DetailedAuthenticationResponse> login(@RequestBody @Valid LoginRequest loginRequest) {
     return ResponseEntity.ok(authService.authenticateUser(loginRequest));
   }
 
   @ApiOperation(value = "Sign Up user")
   @PostMapping("/sign-up")
   @ResponseStatus(HttpStatus.CREATED)
-  public ResponseEntity<AuthenticationResponse> signUpUser(@RequestBody SignUpRequest signUpRequest) {
+  public ResponseEntity<AuthenticationResponse> signUpUser(@RequestBody @Valid SignUpRequest signUpRequest) {
     return ResponseEntity.ok(authService.registerUser(signUpRequest));
   }
 
@@ -48,7 +49,7 @@ public class AuthController {
   @PreAuthorize("hasRole('ADMIN')")
   @PostMapping("/create-courier")
   @ResponseStatus(HttpStatus.CREATED)
-  public ResponseEntity<AuthenticationResponse> createCourier(@RequestBody SignUpRequest signUpRequest) {
+  public ResponseEntity<AuthenticationResponse> createCourier(@RequestBody @Valid SignUpRequest signUpRequest) {
     return ResponseEntity.ok(authService.registerCourier(signUpRequest));
   }
 
