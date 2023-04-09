@@ -10,6 +10,8 @@ import com.coungard.repository.OrderRepository;
 import com.coungard.service.OrderService;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -52,11 +54,24 @@ public class DeliveryOrderService implements OrderService {
   @Override
   public DeliveryOrderModel changeDestination(Long id, AddressModel destination) {
     DeliveryOrder deliveryOrder = orderRepository.findById(id)
-        .orElseThrow(() -> new RuntimeException("Delivery order by id=" + id + " not found!"));
+        .orElseThrow(() -> new EntityNotFoundException("Delivery order by id=" + id + " not found!"));
 
     deliveryOrder.setDestination(orderMapper.toAddressFromAddressModel(destination));
     DeliveryOrder saved = orderRepository.save(deliveryOrder);
     return orderMapper.toDeliveryOrderModel(saved);
+  }
+
+  @Override
+  public void deleteOrder(Long id) {
+    Optional.of(orderRepository.findById(id))
+        .filter(Optional::isPresent)
+        .map(Optional::get)
+        .filter(order -> order.getStatus().equals(DeliveryOrderStatus.CREATED))
+        .map(order -> {
+          orderRepository.delete(order);
+          return true;
+        })
+        .orElseThrow(() -> new EntityNotFoundException("Order not found or status is not CREATED"));
   }
 
   private String definePrincipal() {

@@ -13,4 +13,6 @@ public interface OrderService {
   List<DeliveryOrderModel> getOwnOrders(DeliveryOrderStatus status);
 
   DeliveryOrderModel changeDestination(Long id, AddressModel destination);
+
+  void deleteOrder(Long id);
 }

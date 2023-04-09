@@ -11,10 +11,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import javax.validation.Valid;
-import javax.ws.rs.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,5 +56,14 @@ public class OrderController {
   @ApiOperation(value = "Change the destination address of a user's own order")
   public DeliveryOrderModel changeDestination(@Valid @RequestBody AddressModel destination, @PathVariable Long id) {
     return orderService.changeDestination(id, destination);
+  }
+
+  @DeleteMapping("/{id}")
+  @PreAuthorize("hasRole('USER')")
+  @ResponseStatus(HttpStatus.OK)
+  @ApiOperation(value = "Delete delivery order by User")
+  public ResponseEntity<?> deleteOrder(@PathVariable Long id) {
+    orderService.deleteOrder(id);
+    return ResponseEntity.ok().build();
   }
 }
