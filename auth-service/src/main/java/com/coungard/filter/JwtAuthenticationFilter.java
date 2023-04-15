@@ -25,8 +25,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
   private static final List<String> WELCOME_PAGES = List.of(
       "/",
-      "/login",
-      "/sign-up",
+      "/auth/login",
+      "/auth/sign-up",
       "/swagger-ui/");
 
   @Override
