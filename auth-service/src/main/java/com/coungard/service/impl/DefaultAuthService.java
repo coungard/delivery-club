@@ -22,7 +22,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -82,7 +81,7 @@ public class DefaultAuthService implements AuthService {
 
   private String defineBearerToken(String authHeader) {
     if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-      throw new RuntimeException("Authentication method must be Bearer");
+      throw new ApplicationException("Authentication method must be Bearer");
     }
     return authHeader.substring(7);
   }
@@ -95,8 +94,13 @@ public class DefaultAuthService implements AuthService {
     String password = passwordEncoder.encode(request.getPassword());
     Role role = roleRepository.findByName(roleName.name())
         .orElseThrow(() -> new ApplicationException("Role " + roleName + " is not in the list of roles"));
-    User user = new User(email, request.getName(), password);
-    user.setRoles(Collections.singleton(role));
+
+    User user = new User()
+        .withEmail(email)
+        .withName(request.getName())
+        .withPassword(password)
+        .withRoles(Collections.singleton(role));
+
     userRepository.save(user);
 
     String jwtToken = jwtService.generateToken(userMapper.toPrincipal(user));

@@ -13,7 +13,7 @@ public class MapUtils {
 
   public static List<? extends GrantedAuthority> rolesToAuthorities(Set<Role> roles) {
     return roles.stream()
-        .map(role -> new SimpleGrantedAuthority(role.getName()))
-        .collect(Collectors.toList());
+        .map(role -> new SimpleGrantedAuthority(role.getName().name()))
+        .collect(Collectors.toUnmodifiableList());
   }
 }

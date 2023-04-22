@@ -1,7 +1,7 @@
 package com.coungard.model;
 
 import io.swagger.annotations.ApiModel;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
@@ -12,6 +12,6 @@ public class AddressModel {
   private String district;
   private String receiverName;
   private String receiverSurname;
-  @NotNull(message = "phone is mandatory")
+  @NotBlank(message = "phone is mandatory")
   private String receiverPhone;
 }
