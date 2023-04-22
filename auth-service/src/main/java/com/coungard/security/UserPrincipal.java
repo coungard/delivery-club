@@ -2,10 +2,12 @@ package com.coungard.security;
 
 import java.util.Collection;
 import lombok.Builder;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Builder
+@ToString
 public class UserPrincipal implements UserDetails {
 
   private final Long id;

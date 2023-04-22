@@ -2,6 +2,7 @@ plugins {
   id 'org.springframework.boot' version '2.7.8'
   id 'io.spring.dependency-management' version '1.0.15.RELEASE'
   id 'java'
+  id 'groovy'
   id 'org.liquibase.gradle' version '2.1.1'
 }
 
@@ -22,6 +23,7 @@ repositories {
 ext {
   set('springCloudVersion', "2021.0.4")
   set('mapstructVersion', '1.5.3.Final')
+  set('spockFrameworkVersion', "2.1-groovy-3.0")
 
   generatedMapperSourcesDir = "${buildDir}/generated-src/mapstruct/main"
 }
@@ -44,8 +46,11 @@ dependencies {
   compileOnly 'org.projectlombok:lombok'
   runtimeOnly 'org.postgresql:postgresql'
   annotationProcessor 'org.projectlombok:lombok'
+  annotationProcessor "org.mapstruct:mapstruct-processor:1.5.1.Final"
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
   testImplementation 'org.springframework.security:spring-security-test'
+  testImplementation 'org.spockframework:spock-core'
+  testImplementation 'org.spockframework:spock-spring'
 
   implementation "org.mapstruct:mapstruct:${mapstructVersion}"
   annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
@@ -55,6 +60,7 @@ dependencies {
 dependencyManagement {
   imports {
     mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    mavenBom "org.spockframework:spock-bom:${spockFrameworkVersion}"
   }
 }
 

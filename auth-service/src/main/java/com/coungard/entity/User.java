@@ -11,10 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.With;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -23,6 +25,8 @@ import org.hibernate.annotations.FetchMode;
 @ToString(exclude = "roles")
 @EqualsAndHashCode(of = "email")
 @NoArgsConstructor
+@AllArgsConstructor
+@With
 public class User {
 
   @Id
