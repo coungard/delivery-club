@@ -10,7 +10,7 @@ public interface OrderService {
 
   DeliveryOrderModel createOrder(CreateDeliveryOrderRequest request);
 
-  List<DeliveryOrderModel> getOwnOrders(DeliveryOrderStatus status);
+  List<DeliveryOrderModel> getOwnOrders();
 
   DeliveryOrderModel changeDestination(Long id, AddressModel destination);
 

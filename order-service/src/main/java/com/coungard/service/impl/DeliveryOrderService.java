@@ -45,9 +45,9 @@ public class DeliveryOrderService implements OrderService {
   }
 
   @Override
-  public List<DeliveryOrderModel> getOwnOrders(DeliveryOrderStatus status) {
+  public List<DeliveryOrderModel> getOwnOrders() {
     String email = definePrincipal();
-    List<DeliveryOrder> deliveryOrders = orderRepository.defineAllOrdersByEmailAndStatuses(email, status);
+    List<DeliveryOrder> deliveryOrders = orderRepository.defineAllOrdersByEmail(email);
     return orderMapper.toDeliveryOrderModelList(deliveryOrders);
   }
 

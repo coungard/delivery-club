@@ -26,6 +26,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 public class SwaggerConfig implements WebMvcConfigurer {
 
   public static final String ORDER_TAG = "Order Service";
+  public static final String PARCEL_TAG = "Parcel Service";
 
   @Bean
   public Docket api() {
@@ -38,7 +39,8 @@ public class SwaggerConfig implements WebMvcConfigurer {
         .paths(Predicate.not(PathSelectors.regex("/error.*?")))
         .build()
         .tags(
-            new Tag(ORDER_TAG, "API commands related directly to delivery")
+            new Tag(ORDER_TAG, "API commands related directly to delivery"),
+            new Tag(PARCEL_TAG, "API commands related directly to parcels")
         );
   }
 
