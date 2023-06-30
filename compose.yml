@@ -16,18 +16,18 @@ services:
       - "5433:5432"
     restart: unless-stopped
 
-  gateway:
-    restart: always
-    image: coungard/delivery-club:gateway
-    hostname: gateway
-    ports:
-      - '9991:9991'
-    environment:
-      POSTGRES: postgres
-      AUTH-SERVICE: auth-service
-      EUREKA-SERVER: eureka-server
-    links:
-      - eureka-server
+#  gateway:
+#    restart: always
+#    image: coungard/delivery-club:gateway
+#    hostname: gateway
+#    ports:
+#      - '9991:9991'
+#    environment:
+#      POSTGRES: postgres
+#      AUTH-SERVICE: auth-service
+#      EUREKA-SERVER: eureka-server
+#    links:
+#      - eureka-server
 
   eureka-server:
     restart: always
