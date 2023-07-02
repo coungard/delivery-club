@@ -68,8 +68,8 @@ public class AuthServiceTest {
 
     Optional<Role> userRole = Optional.of(Role.builder().name(ROLE_USER).build());
     Optional<Role> courierRole = Optional.of(Role.builder().name(ROLE_COURIER).build());
-    Mockito.when(roleRepository.findByName(ROLE_USER.name())).thenReturn(userRole);
-    Mockito.when(roleRepository.findByName(ROLE_COURIER.name())).thenReturn(courierRole);
+    Mockito.when(roleRepository.findByName(ROLE_USER)).thenReturn(userRole);
+    Mockito.when(roleRepository.findByName(ROLE_COURIER)).thenReturn(courierRole);
 
     Mockito.when(userDetails.getUsername()).thenReturn(USER_EXISTS_EMAIL);
   }

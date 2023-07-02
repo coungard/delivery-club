@@ -92,7 +92,8 @@ public class DefaultAuthService implements AuthService {
       throw new ConflictException("Email " + email + " is already taken!");
     }
     String password = passwordEncoder.encode(request.getPassword());
-    Role role = roleRepository.findByName(roleName.name())
+
+    Role role = roleRepository.findByName(roleName)
         .orElseThrow(() -> new ApplicationException("Role " + roleName + " is not in the list of roles"));
 
     User user = new User()
