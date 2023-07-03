@@ -6,7 +6,7 @@ import com.coungard.model.request.LoginRequest;
 import com.coungard.model.request.SignUpRequest;
 import com.coungard.model.response.AuthenticationResponse;
 import com.coungard.model.response.DetailedAuthenticationResponse;
-import com.coungard.security.UserPrincipal;
+import com.coungard.model.response.PrincipalResponse;
 import com.coungard.service.AuthService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -56,7 +56,7 @@ public class AuthController {
   @ApiOperation(value = "Identification user by token")
   @GetMapping("/user/me")
   @ResponseStatus(HttpStatus.OK)
-  public ResponseEntity<UserPrincipal> identify(@RequestHeader(HttpHeaders.AUTHORIZATION)  String authHeader) {
+  public ResponseEntity<PrincipalResponse> identify(@RequestHeader(HttpHeaders.AUTHORIZATION)  String authHeader) {
     return ResponseEntity.ok(authService.identify(authHeader));
   }
 }

@@ -2,14 +2,11 @@
 <databaseChangeLog
   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:pro="http://www.liquibase.org/xml/ns/pro"
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
-      http://www.liquibase.org/xml/ns/pro
-      http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd">
+      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
 
   <changeSet author="coungard" id="2023-01-13-initial-schema-import-1">
-    <preConditions onFail="HALT">
+    <preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="users"/>
       </not>
@@ -25,7 +22,7 @@
   </changeSet>
 
   <changeSet author="coungard" id="2023-01-13-initial-schema-import-2">
-    <preConditions onFail="HALT">
+    <preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="role"/>
       </not>
@@ -39,7 +36,7 @@
   </changeSet>
 
   <changeSet author="coungard" id="2023-01-13-initial-schema-import-3">
-    <preConditions onFail="HALT">
+    <preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="user_roles"/>
       </not>
@@ -54,7 +51,7 @@
   </changeSet>
 
   <changeSet author="coungard" id="2023-01-13-initial-schema-import-4">
-    <preConditions onFail="HALT">
+    <preConditions onFail="MARK_RAN">
       <sqlCheck expectedResult="0">select count(*) from role</sqlCheck>
     </preConditions>
     <sql>
@@ -68,7 +65,7 @@
   </changeSet>
 
   <changeSet author="coungard" id="2023-01-13-initial-schema-import-5">
-    <preConditions onFail="HALT">
+    <preConditions onFail="MARK_RAN">
       <sqlCheck expectedResult="0">select count(*) from users</sqlCheck>
     </preConditions>
     <sql>
@@ -85,7 +82,7 @@
   </changeSet>
 
   <changeSet author="coungard" id="2023-01-13-initial-schema-import-6">
-    <preConditions onFail="HALT">
+    <preConditions onFail="MARK_RAN">
       <sqlCheck expectedResult="0">select count(*) from user_roles</sqlCheck>
     </preConditions>
     <sql>

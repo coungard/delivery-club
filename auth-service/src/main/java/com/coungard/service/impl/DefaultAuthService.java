@@ -10,6 +10,7 @@ import com.coungard.model.request.LoginRequest;
 import com.coungard.model.request.SignUpRequest;
 import com.coungard.model.response.AuthenticationResponse;
 import com.coungard.model.response.DetailedAuthenticationResponse;
+import com.coungard.model.response.PrincipalResponse;
 import com.coungard.repository.RoleRepository;
 import com.coungard.repository.UserRepository;
 import com.coungard.security.CustomUserDetailsService;
@@ -53,7 +54,7 @@ public class DefaultAuthService implements AuthService {
 
     return DetailedAuthenticationResponse.builder()
         .token(jwtToken)
-        .userPrincipal(userPrincipal)
+        .principal(userPrincipal)
         .build();
   }
 
@@ -68,7 +69,7 @@ public class DefaultAuthService implements AuthService {
   }
 
   @Override
-  public UserPrincipal identify(String authHeader) {
+  public PrincipalResponse identify(String authHeader) {
     return Optional.of(authHeader)
         .map(this::defineBearerToken)
         .map(jwtService::extractUsername)
@@ -76,6 +77,7 @@ public class DefaultAuthService implements AuthService {
         .filter(Optional::isPresent)
         .map(Optional::get)
         .map(userMapper::toPrincipal)
+        .map(principal -> PrincipalResponse.builder().principal(principal).build())
         .orElseThrow(() -> new RuntimeException("Identification error by extract token: " + authHeader));
   }
 

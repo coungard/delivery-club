@@ -14,6 +14,7 @@ import com.coungard.model.request.LoginRequest;
 import com.coungard.model.request.SignUpRequest;
 import com.coungard.model.response.AuthenticationResponse;
 import com.coungard.model.response.DetailedAuthenticationResponse;
+import com.coungard.model.response.PrincipalResponse;
 import com.coungard.repository.RoleRepository;
 import com.coungard.repository.UserRepository;
 import com.coungard.security.JwtService;
@@ -83,9 +84,9 @@ public class AuthServiceTest {
         .build();
 
     DetailedAuthenticationResponse response = authService.authenticateUser(loginRequest);
-    assertTrue(jwtService.isTokenValid(response.getToken(), response.getUserPrincipal()));
+    assertTrue(jwtService.isTokenValid(response.getToken(), response.getPrincipal()));
 
-    UserPrincipal user = response.getUserPrincipal();
+    UserPrincipal user = response.getPrincipal();
     assertEquals(USER_EXISTS_EMAIL, user.getUsername());
     assertEquals(USER_NAME, user.getName());
     assertEquals(ENCRYPTED_PASSWORD, user.getPassword());
@@ -166,7 +167,8 @@ public class AuthServiceTest {
   public void successIdentify() {
     String token = jwtService.generateToken(userDetails);
 
-    UserPrincipal principal = authService.identify("Bearer " + token);
+    PrincipalResponse response = authService.identify("Bearer " + token);
+    UserPrincipal principal = response.getPrincipal();
     assertEquals(USER_NAME, principal.getName());
     assertEquals(USER_EXISTS_EMAIL, principal.getUsername());
     assertEquals(ENCRYPTED_PASSWORD, principal.getPassword());

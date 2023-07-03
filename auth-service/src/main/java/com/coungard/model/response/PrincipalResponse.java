@@ -6,8 +6,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class DetailedAuthenticationResponse {
+public class PrincipalResponse {
 
-  private String token;
-  private UserPrincipal principal;
+  UserPrincipal principal;
 }

@@ -9,7 +9,7 @@
       http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd">
 
   <changeSet author="coungard" id="2023-02-16-create-delivery-order-table">
-    <preConditions onFail="HALT">
+    <preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="delivery_order"/>
       </not>
@@ -33,7 +33,7 @@
   </changeSet>
 
   <changeSet author="coungard" id="2023-02-16-create-parcel-table">
-    <preConditions onFail="HALT">
+    <preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="parcel"/>
       </not>
