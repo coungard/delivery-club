@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class JwtService {
 
-  private static final int EXPIRATION_TIME = 1000 * 60 * 24; // one day
+  private static final int EXPIRATION_TIME = 1000 * 60 * 24 * 30; // 30 days
 
   @Value("${jwt.signing.key}")
   private String jwtSigningKey;
