@@ -14,5 +14,5 @@ public interface OrderService {
 
   DeliveryOrderModel changeDestination(Long id, AddressModel destination);
 
-  void deleteOrder(Long id);
+  Long deleteOrder(Long id);
 }

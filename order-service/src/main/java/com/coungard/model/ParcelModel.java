@@ -1,6 +1,7 @@
 package com.coungard.model;
 
 import io.swagger.annotations.ApiModel;
+import java.math.BigDecimal;
 import lombok.Data;
 
 @Data
@@ -9,5 +10,5 @@ public class ParcelModel {
 
   private Long id;
   private ParcelType type;
-  private Double weight;
+  private BigDecimal weight;
 }

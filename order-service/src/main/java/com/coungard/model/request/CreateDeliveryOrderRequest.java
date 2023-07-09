@@ -4,6 +4,7 @@ import com.coungard.model.AddressModel;
 import com.coungard.model.CreateParcelModel;
 import io.swagger.annotations.ApiModel;
 import java.util.List;
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,7 @@ public class CreateDeliveryOrderRequest {
 
   @NotNull(message = "parcels is mandatory")
   @NotEmpty(message = "parcels must have at least 1 item")
+  @Valid
   private List<CreateParcelModel> parcels;
 
   @NotNull(message = "destination address is mandatory")

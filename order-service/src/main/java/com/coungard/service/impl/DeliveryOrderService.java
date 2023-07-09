@@ -62,14 +62,14 @@ public class DeliveryOrderService implements OrderService {
   }
 
   @Override
-  public void deleteOrder(Long id) {
-    Optional.of(orderRepository.findById(id))
+  public Long deleteOrder(Long id) {
+    return Optional.of(orderRepository.findById(id))
         .filter(Optional::isPresent)
         .map(Optional::get)
         .filter(order -> order.getStatus().equals(DeliveryOrderStatus.CREATED))
         .map(order -> {
           orderRepository.delete(order);
-          return true;
+          return id;
         })
         .orElseThrow(() -> new EntityNotFoundException("Order not found or status is not CREATED"));
   }

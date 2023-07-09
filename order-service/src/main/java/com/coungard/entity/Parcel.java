@@ -1,6 +1,7 @@
 package com.coungard.entity;
 
 import com.coungard.model.ParcelType;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -28,7 +29,7 @@ public class Parcel {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private Double weight;
+  private BigDecimal weight;
   @Enumerated(EnumType.STRING)
   private ParcelType type;
   @ManyToOne()

@@ -61,7 +61,7 @@ public class OrderController {
   @ResponseStatus(HttpStatus.OK)
   @ApiOperation(value = "Delete delivery order by User")
   public ResponseEntity<?> deleteOrder(@PathVariable Long id) {
-    orderService.deleteOrder(id);
-    return ResponseEntity.ok().build();
+    Long deleted = orderService.deleteOrder(id);
+    return ResponseEntity.ok().body(deleted);
   }
 }

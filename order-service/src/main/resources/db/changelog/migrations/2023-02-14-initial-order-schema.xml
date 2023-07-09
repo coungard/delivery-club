@@ -48,7 +48,7 @@
         last_modified_by    VARCHAR(128),
         last_modified_date  DATE,
         type              VARCHAR(20)   NOT NULL,
-        weight            NUMERIC(4, 2) NOT NULL
+        weight            NUMERIC(6, 2) NOT NULL
       )
     </sql>
   </changeSet>
