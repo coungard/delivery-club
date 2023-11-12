@@ -108,6 +108,7 @@ public class DefaultAuthService implements AuthService {
 
     String jwtToken = jwtService.generateToken(userMapper.toPrincipal(user));
     return AuthenticationResponse.builder()
+        .id(user.getId())
         .token(jwtToken)
         .roleName(roleName.name())
         .build();

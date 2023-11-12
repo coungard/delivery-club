@@ -32,7 +32,7 @@ public class Parcel {
   private BigDecimal weight;
   @Enumerated(EnumType.STRING)
   private ParcelType type;
-  @ManyToOne()
+  @ManyToOne
   @JoinColumn(name = "delivery_order_id")
   @ToString.Exclude
   private DeliveryOrder deliveryOrder;
