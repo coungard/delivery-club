@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+  <changeSet author="coungard" id="2023-30-06-create-courier-table-01.xml">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <tableExists tableName="courier"/>
+      </not>
+    </preConditions>
+    <sql>
+      CREATE TABLE courier
+      (
+        id                 BIGSERIAL PRIMARY KEY,
+        user_id            INTEGER REFERENCES users (id),
+        type               VARCHAR(60)  NOT NULL,
+        status             VARCHAR(60)  NOT NULL,
+        created_by         VARCHAR(255) NOT NULL,
+        created_date       DATE         NOT NULL,
+        last_modified_by   VARCHAR(255),
+        last_modified_date DATE
+      )
+    </sql>
+  </changeSet>
+
+</databaseChangeLog>
