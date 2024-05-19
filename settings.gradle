@@ -1,6 +1,6 @@
-include ':eureka-server'
-include ':gateway'
-include ':auth-service'
-include ':order-service'
-include ':courier-service'
+include 'eureka-server'
+include 'gateway'
+include 'auth-service'
+include 'order-service'
+include 'courier-service'
 

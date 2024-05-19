@@ -1,16 +1,20 @@
 package com.coungard.service.impl;
 
+import com.coungard.model.WeightModel;
 import com.coungard.entity.DeliveryOrder;
 import com.coungard.mapper.DeliveryOrderMapper;
+import com.coungard.mapper.WeightMapper;
 import com.coungard.model.AddressModel;
 import com.coungard.model.DeliveryOrderModel;
 import com.coungard.model.DeliveryOrderStatus;
 import com.coungard.model.request.CreateDeliveryOrderRequest;
 import com.coungard.repository.OrderRepository;
+import com.coungard.repository.WeightRepository;
 import com.coungard.service.OrderService;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,6 +26,9 @@ public class DeliveryOrderService implements OrderService {
 
   private final OrderRepository orderRepository;
   private final DeliveryOrderMapper orderMapper = DeliveryOrderMapper.INSTANCE;
+  private final WeightMapper weightMapper = WeightMapper.INSTANCE;
+
+  private final WeightRepository weightRepository;
 
   @Override
   public DeliveryOrderModel createOrder(CreateDeliveryOrderRequest request) {
@@ -72,6 +79,13 @@ public class DeliveryOrderService implements OrderService {
           return id;
         })
         .orElseThrow(() -> new EntityNotFoundException("Order not found or status is not CREATED"));
+  }
+
+  @Override
+  public List<WeightModel> getWeightsList() {
+    return weightRepository.findAll().stream()
+        .map(weightMapper::toWeightDto)
+        .collect(Collectors.toList());
   }
 
   private String definePrincipal() {
