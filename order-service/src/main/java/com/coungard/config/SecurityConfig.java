@@ -74,6 +74,7 @@ public class SecurityConfig {
         .cors(Customizer.withDefaults())
         .csrf().disable()
         .authorizeRequests()
+        .mvcMatchers("/order/weight-map").permitAll()
         .mvcMatchers(AUTH_WHITELIST).permitAll()
         .anyRequest()
         .authenticated()

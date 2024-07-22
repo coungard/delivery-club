@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+  <changeSet author="Konstantin" id="2024-05-15-create-weights-table">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <tableExists tableName="weights"/>
+      </not>
+    </preConditions>
+    <sql>
+      CREATE TABLE weights
+      (
+        id          BIGSERIAL PRIMARY KEY,
+        parcel_type VARCHAR(24)    NOT NULL,
+        min_weight  DECIMAL(10, 2) NOT NULL,
+        max_weight  DECIMAL(10, 2) NOT NULL
+      )
+    </sql>
+  </changeSet>
+
+  <changeSet author="Konstantin" id="2024-05-15-insert-weight-table">
+    <preConditions onFail="MARK_RAN">
+      <sqlCheck expectedResult="0">select count(*)
+                                   from weights</sqlCheck>
+    </preConditions>
+    <sql>
+      INSERT INTO weights(PARCEL_TYPE, MIN_WEIGHT, MAX_WEIGHT)
+      VALUES ('SMALL', 0.0, 2.99),
+             ('MEDIUM', 3.0, 5.99),
+             ('LARGE', 6.0, 9.99),
+             ('EXTRA_LARGE', 10.0, 20.0);
+    </sql>
+  </changeSet>
+
+</databaseChangeLog>

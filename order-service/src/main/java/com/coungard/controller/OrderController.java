@@ -4,6 +4,7 @@ import static com.coungard.config.SwaggerConfig.ORDER_TAG;
 
 import com.coungard.model.AddressModel;
 import com.coungard.model.DeliveryOrderModel;
+import com.coungard.model.WeightModel;
 import com.coungard.model.request.CreateDeliveryOrderRequest;
 import com.coungard.service.OrderService;
 import io.swagger.annotations.Api;
@@ -63,5 +64,16 @@ public class OrderController {
   public ResponseEntity<?> deleteOrder(@PathVariable Long id) {
     Long deleted = orderService.deleteOrder(id);
     return ResponseEntity.ok().body(deleted);
+  }
+
+  @GetMapping("/weight-map")
+  public ResponseEntity<List<WeightModel>> getWeightsList() {
+    List<WeightModel> weightMap = orderService.getWeightsList();
+
+    if (weightMap.isEmpty()) {
+      return ResponseEntity.noContent().build();
+    } else {
+      return ResponseEntity.ok(weightMap);
+    }
   }
 }
