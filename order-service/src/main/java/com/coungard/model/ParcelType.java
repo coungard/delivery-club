@@ -1,5 +1,5 @@
 package com.coungard.model;
 
 public enum ParcelType {
-    SMALL, MEDIUM, LARGE, EXTRA_LARGE
+  SMALL, MEDIUM, LARGE, EXTRA_LARGE
 }

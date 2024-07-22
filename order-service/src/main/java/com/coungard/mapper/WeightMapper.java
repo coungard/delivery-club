@@ -1,7 +1,7 @@
 package com.coungard.mapper;
 
-import com.coungard.model.WeightModel;
 import com.coungard.entity.Weight;
+import com.coungard.model.WeightModel;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;

@@ -1,12 +1,12 @@
 package com.coungard.service.impl;
 
-import com.coungard.model.WeightModel;
 import com.coungard.entity.DeliveryOrder;
 import com.coungard.mapper.DeliveryOrderMapper;
 import com.coungard.mapper.WeightMapper;
 import com.coungard.model.AddressModel;
 import com.coungard.model.DeliveryOrderModel;
 import com.coungard.model.DeliveryOrderStatus;
+import com.coungard.model.WeightModel;
 import com.coungard.model.request.CreateDeliveryOrderRequest;
 import com.coungard.repository.OrderRepository;
 import com.coungard.repository.WeightRepository;
